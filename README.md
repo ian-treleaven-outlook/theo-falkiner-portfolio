@@ -1,2 +1,2 @@
-# theo-falkiner-portfolio
+# Theo Falkiner Portfolio
 Portfolio for Theo
