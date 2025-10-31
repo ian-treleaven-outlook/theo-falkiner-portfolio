@@ -1,0 +1,1 @@
+JavaScript for GSAP ScrollTrigger animations including fade-in effects for sections, staggered animations for gallery items, parallax effects for backgrounds, smooth reveals for text elements, intersection observer for adding visible class to fade-in elements, and performance optimized scroll handling.

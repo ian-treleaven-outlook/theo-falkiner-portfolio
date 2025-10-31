@@ -1,0 +1,1 @@
+JavaScript to fetch artwork.json, dynamically create gallery items with alternating layout-left and layout-right classes, handle missing fields gracefully, create clickable images with data attributes for PhotoSwipe, initialize PhotoSwipe lightbox with captions showing title, medium, year and description, and trigger scroll animations after content loads.

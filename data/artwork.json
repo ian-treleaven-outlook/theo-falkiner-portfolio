@@ -1,0 +1,1 @@
+JSON file with sample artworks array containing 3-4 example artworks with fields: title, image, thumbnail, year, medium, dimensions, description, price, available (boolean), sold (boolean), category, and tags array. Use realistic example data for an artist portfolio.
