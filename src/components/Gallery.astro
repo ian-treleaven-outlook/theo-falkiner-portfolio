@@ -1,0 +1,96 @@
+---
+interface ArtworkItem {
+  title: string;
+  medium: string;
+  year: string;
+  description: string;
+  color: string;
+}
+
+const artworks: ArtworkItem[] = [
+  {
+    title: "Sunset Dreams",
+    medium: "Oil on Canvas",
+    year: "2025",
+    description: "A vibrant exploration of colour and light, capturing the fleeting moments of a coastal sunset.",
+    color: "from-orange-400 to-pink-500",
+  },
+  {
+    title: "Urban Reflections",
+    medium: "Mixed Media",
+    year: "2025",
+    description: "An introspective study of city life through layered textures and muted colours.",
+    color: "from-blue-400 to-indigo-600",
+  },
+  {
+    title: "Whispers of Spring",
+    medium: "Acrylic on Canvas",
+    year: "2024",
+    description: "Delicate brushwork captures the gentle awakening of spring in soft pastels and flowing lines.",
+    color: "from-green-400 to-emerald-500",
+  },
+  {
+    title: "Midnight Reverie",
+    medium: "Oil on Canvas",
+    year: "2024",
+    description: "A dramatic nocturnal landscape rendered in deep blues and purples.",
+    color: "from-purple-500 to-indigo-800",
+  },
+  {
+    title: "Golden Hour",
+    medium: "Digital Art Print",
+    year: "2025",
+    description: "A contemporary digital composition celebrating the magic of late afternoon light.",
+    color: "from-amber-400 to-orange-500",
+  },
+  {
+    title: "Coral Tide",
+    medium: "Watercolour",
+    year: "2024",
+    description: "Fluid washes of coral and turquoise evoke the gentle rhythm of ocean waves.",
+    color: "from-rose-400 to-cyan-400",
+  },
+];
+---
+
+<section id="portfolio" class="section-padding bg-light">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-semibold mb-6 tracking-wide uppercase">Portfolio</span>
+      <h2 class="text-4xl md:text-5xl font-black text-dark mb-4">
+        Featured <span class="gradient-text">Works</span>
+      </h2>
+      <p class="text-dark/50 text-lg max-w-xl mx-auto">
+        A curated selection of recent pieces across various mediums and styles.
+      </p>
+    </div>
+
+    <!-- Gallery grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {artworks.map((artwork) => (
+        <article class="group cursor-pointer">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            {/* Placeholder gradient image */}
+            <div class={`absolute inset-0 bg-gradient-to-br ${artwork.color} transition-transform duration-700 group-hover:scale-110`}>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-white/30 text-7xl font-black">{artwork.title.charAt(0)}</span>
+              </div>
+            </div>
+            {/* Overlay on hover */}
+            <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/40 transition-all duration-500 flex items-end">
+              <div class="p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                <p class="text-white/80 text-sm">{artwork.description}</p>
+              </div>
+            </div>
+          </div>
+          {/* Card info */}
+          <div class="mt-4 px-1">
+            <h3 class="text-lg font-bold text-dark group-hover:text-primary transition-colors">{artwork.title}</h3>
+            <p class="text-dark/50 text-sm">{artwork.medium} &middot; {artwork.year}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

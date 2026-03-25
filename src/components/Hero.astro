@@ -1,0 +1,46 @@
+---
+---
+
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Animated gradient background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent animate-gradient-shift"></div>
+
+  <!-- Decorative shapes -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute -top-20 -right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-accent/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-secondary/15 rounded-full blur-2xl"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+    <p class="text-white/80 text-lg md:text-xl font-medium mb-4 tracking-widest uppercase">Visual Artist & Creative</p>
+    <h1 class="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 leading-tight">
+      Theo<br />Falkiner
+    </h1>
+    <p class="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+      Exploring the intersection of light, colour, and emotion through contemporary art.
+    </p>
+    <a href="#portfolio" class="inline-block px-10 py-4 bg-white text-dark font-bold rounded-full text-lg hover:bg-accent hover:text-dark transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1">
+      View Portfolio
+    </a>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 animate-bounce">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </div>
+</section>
+
+<style>
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+</style>
