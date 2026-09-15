@@ -38,9 +38,9 @@ const productions: Production[] = [
     award: 'Recipient of "Outstanding Ensemble" award at Victoria One Act Play Festival',
     folder: "four-out-of-five-dentists",
     images: [
-      { file: "poster.png", alt: "Four out of Five Dentists production poster" },
+      { file: "poster.webp", alt: "Four out of Five Dentists production poster" },
       { file: "dsc_4310-1.webp", alt: "Four out of Five Dentists production photograph 1" },
-      { file: "double-feature.png", alt: "Four out of Five Dentists double feature artwork" },
+      { file: "double-feature.webp", alt: "Four out of Five Dentists double feature artwork" },
       { file: "dsc_4216-2.webp", alt: "Four out of Five Dentists production photograph 2" },
       { file: "dsc_4406-1.webp", alt: "Four out of Five Dentists production photograph 3" },
       { file: "dsc_4436-1.webp", alt: "Four out of Five Dentists production photograph 4" },
@@ -57,20 +57,21 @@ const productions: Production[] = [
     description: "Three improvisers are pushed to their limits by grueling physical challenges as they attempt to find the plot. Produced in collaboration with Dead Horse Theatre Co.",
     folder: "gonna-leave-a-mark",
     images: [
-      { file: "poster.png", alt: "That's Gonna Leave a Mark production poster" },
-      { file: "3.png", alt: "That's Gonna Leave a Mark production photograph 1" },
+      { file: "poster.webp", alt: "That's Gonna Leave a Mark production poster" },
+      { file: "3.webp", alt: "That's Gonna Leave a Mark production photograph 1" },
       { file: "1-dsc_6505.webp", alt: "That's Gonna Leave a Mark production photograph 2" },
       { file: "15-dsc_6570.webp", alt: "That's Gonna Leave a Mark production photograph 3" },
-      { file: "1.png", alt: "That's Gonna Leave a Mark production photograph 4" },
-      { file: "2.png", alt: "That's Gonna Leave a Mark production photograph 5" },
-      { file: "4.png", alt: "That's Gonna Leave a Mark production photograph 6" },
+      { file: "1.webp", alt: "That's Gonna Leave a Mark production photograph 4" },
+      { file: "2.webp", alt: "That's Gonna Leave a Mark production photograph 5" },
+      { file: "4.webp", alt: "That's Gonna Leave a Mark production photograph 6" },
       { file: "elijah_ahhh.jpeg-e1752275462383.jpg", alt: "That's Gonna Leave a Mark production photograph 7" },
     ],
   },
 ];
 
 const baseUrl = import.meta.env.BASE_URL;
-const imageUrl = (folder: string, file: string) => `${baseUrl}/images/productions/${folder}/${file}`;
+const assetBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+const imageUrl = (folder: string, file: string) => `${assetBaseUrl}images/productions/${folder}/${file}`;
 ---
 
 <section id="portfolio" class="section-padding bg-light overflow-hidden">

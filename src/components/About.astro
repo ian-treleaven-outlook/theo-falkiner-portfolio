@@ -1,7 +1,8 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
-const portraitUrl = `${baseUrl}/images/artist/theo-portrait.webp`;
-const revealUrl = `${baseUrl}/images/artist/theo-uvic-oracle.png`;
+const assetBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+const portraitUrl = `${assetBaseUrl}images/artist/theo-portrait.webp`;
+const revealUrl = `${assetBaseUrl}images/artist/theo-uvic-oracle.webp`;
 ---
 
 <section id="about" class="section-padding bg-white">
