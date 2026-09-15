@@ -1,49 +1,130 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
+const portraitUrl = `${baseUrl}/images/artist/theo-portrait.webp`;
+const revealUrl = `${baseUrl}/images/artist/theo-uvic-oracle.png`;
 ---
 
 <section id="about" class="section-padding bg-white">
   <div class="max-w-6xl mx-auto">
     <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-      <!-- Image / visual side -->
       <div class="relative">
-        <div class="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
-          <div class="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 flex items-center justify-center">
-            <div class="text-center p-8">
-              <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <span class="text-5xl text-white font-black">TF</span>
-              </div>
-              <p class="text-dark/40 text-sm italic">Artist photo placeholder</p>
-            </div>
-          </div>
-        </div>
-        <!-- Decorative accent -->
+        <figure
+          class="about-photo-frame aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+          tabindex="0"
+          aria-label="Portrait of Theo Falkiner. Focus to reveal a playful graduation portrait."
+        >
+          <img
+            class="about-photo about-photo-primary"
+            src={portraitUrl}
+            alt="Black and white portrait of Theo Falkiner"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="about-photo about-photo-reveal"
+            src={revealUrl}
+            alt="Theo Falkiner smiling in graduation robes and a handmade sun hat"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
         <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-accent to-secondary rounded-2xl -z-10 opacity-60"></div>
       </div>
 
-      <!-- Text side -->
       <div>
         <span class="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6 tracking-wide uppercase">About the Artist</span>
         <h2 class="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-          Creating art that
+          Creating art that{" "}
           <span class="gradient-text">moves you</span>
         </h2>
         <p class="text-dark/60 text-lg leading-relaxed mb-6">
-          Theo Falkiner is a contemporary visual artist whose work explores the intersection
-          of light, colour, and emotion. Through various mediums including oil painting,
-          mixed media, and digital art, Theo creates pieces that invite viewers to pause
-          and reflect on the beauty found in everyday moments.
+          Multidisciplinary theatre artist and production professional with a University of
+          Victoria BFA and hands-on experience in live audio, sound design, venue technology,
+          playwriting, directing, stage management, improv/comedy and event AV.
         </p>
         <p class="text-dark/60 text-lg leading-relaxed mb-8">
-          Each piece is crafted with careful attention to detail and a deep commitment to
-          artistic expression. Theo's work has been featured in galleries and private
-          collections, connecting with audiences who seek art that resonates on an emotional level.
+          Founding member and Collective Artist with Timetheft Theatre; writer/director of the
+          award-winning comedy Four out of Five Dentists and writer/director of Ask the Oracle.
+          Live-audio credits span musical theatre, live music and festival production. Brings a
+          performer-aware approach, strong communication skills and calm problem-solving to
+          time-sensitive live environments.
         </p>
         <div class="flex flex-wrap gap-3">
-          <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">Oil Painting</span>
-          <span class="px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm font-medium">Mixed Media</span>
-          <span class="px-4 py-2 bg-accent/10 text-amber-600 rounded-full text-sm font-medium">Digital Art</span>
+          <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">Writing</span>
+          <span class="px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm font-medium">Directing</span>
+          <span class="px-4 py-2 bg-accent/10 text-amber-600 rounded-full text-sm font-medium">Comedy</span>
+          <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">Improv</span>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .about-photo-frame {
+    position: relative;
+    isolation: isolate;
+    background: #313131;
+    cursor: crosshair;
+  }
+
+  .about-photo-frame::after {
+    position: absolute;
+    z-index: 2;
+    inset: -25% 60% -25% -40%;
+    background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 28%) 50%, transparent 70%);
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-100%) rotate(8deg);
+    transition: opacity 180ms ease, transform 650ms ease;
+  }
+
+  .about-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 420ms ease, transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .about-photo-primary {
+    object-position: center 38%;
+  }
+
+  .about-photo-reveal {
+    opacity: 0;
+    transform: scale(1.1) rotate(-2deg);
+  }
+
+  .about-photo-frame:hover .about-photo-primary,
+  .about-photo-frame:focus .about-photo-primary {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  .about-photo-frame:hover .about-photo-reveal,
+  .about-photo-frame:focus .about-photo-reveal {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+
+  .about-photo-frame:hover::after,
+  .about-photo-frame:focus::after {
+    opacity: 1;
+    transform: translateX(350%) rotate(8deg);
+  }
+
+  .about-photo-frame:focus-visible {
+    outline: 4px solid rgb(99 102 241 / 55%);
+    outline-offset: 0.35rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-photo,
+    .about-photo-frame::after {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>

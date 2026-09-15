@@ -1,96 +1,341 @@
 ---
-interface ArtworkItem {
-  title: string;
-  medium: string;
-  year: string;
-  description: string;
-  color: string;
+interface ProductionImage {
+  file: string;
+  alt: string;
 }
 
-const artworks: ArtworkItem[] = [
+interface Production {
+  title: string;
+  eyebrow: string;
+  credit: string;
+  description?: string;
+  award?: string;
+  folder: string;
+  images: ProductionImage[];
+}
+
+const productions: Production[] = [
   {
-    title: "Sunset Dreams",
-    medium: "Oil on Canvas",
-    year: "2025",
-    description: "A vibrant exploration of colour and light, capturing the fleeting moments of a coastal sunset.",
-    color: "from-orange-400 to-pink-500",
+    title: "Ask the Oracle",
+    eyebrow: "Victoria One Act Play Festival 2026",
+    credit: "Written and directed by Theodore Falkiner",
+    description: "At a crossroads in his life, Nick seeks out an oracle for guidance, and gets more than he bargained for. Now Nick must decide what to do about his relationship, and what to make of this strange new clairvoyant.",
+    folder: "ask-the-oracle",
+    images: [
+      { file: "poster.webp", alt: "Ask the Oracle production poster" },
+      { file: "img_2318.webp", alt: "Ask the Oracle production photograph 1" },
+      { file: "img_2293.webp", alt: "Ask the Oracle production photograph 2" },
+      { file: "img_2333.webp", alt: "Ask the Oracle production photograph 3" },
+      { file: "img_2363.webp", alt: "Ask the Oracle production photograph 4" },
+      { file: "img_2402-1.webp", alt: "Ask the Oracle production photograph 5" },
+    ],
   },
   {
-    title: "Urban Reflections",
-    medium: "Mixed Media",
-    year: "2025",
-    description: "An introspective study of city life through layered textures and muted colours.",
-    color: "from-blue-400 to-indigo-600",
+    title: "Four out of Five Dentists",
+    eyebrow: "Victoria One Act Play Festival 2025",
+    credit: "Written and directed by Theodore Falkiner",
+    description: "Four Out of Five Dentists is a comedy piece that delves into social isolation, emotional connection, and platonic intimacy. It explores how capitalism hinders our capacity for meaningful connections and highlights the universal human yearning for community.",
+    award: 'Recipient of "Outstanding Ensemble" award at Victoria One Act Play Festival',
+    folder: "four-out-of-five-dentists",
+    images: [
+      { file: "poster.png", alt: "Four out of Five Dentists production poster" },
+      { file: "dsc_4310-1.webp", alt: "Four out of Five Dentists production photograph 1" },
+      { file: "double-feature.png", alt: "Four out of Five Dentists double feature artwork" },
+      { file: "dsc_4216-2.webp", alt: "Four out of Five Dentists production photograph 2" },
+      { file: "dsc_4406-1.webp", alt: "Four out of Five Dentists production photograph 3" },
+      { file: "dsc_4436-1.webp", alt: "Four out of Five Dentists production photograph 4" },
+      { file: "dsc_4499-1.webp", alt: "Four out of Five Dentists production photograph 5" },
+      { file: "dsc_4523-1.webp", alt: "Four out of Five Dentists production photograph 6" },
+      { file: "dsc_4572-1.webp", alt: "Four out of Five Dentists production photograph 7" },
+      { file: "dsc_4621-1.webp", alt: "Four out of Five Dentists production photograph 8" },
+    ],
   },
   {
-    title: "Whispers of Spring",
-    medium: "Acrylic on Canvas",
-    year: "2024",
-    description: "Delicate brushwork captures the gentle awakening of spring in soft pastels and flowing lines.",
-    color: "from-green-400 to-emerald-500",
-  },
-  {
-    title: "Midnight Reverie",
-    medium: "Oil on Canvas",
-    year: "2024",
-    description: "A dramatic nocturnal landscape rendered in deep blues and purples.",
-    color: "from-purple-500 to-indigo-800",
-  },
-  {
-    title: "Golden Hour",
-    medium: "Digital Art Print",
-    year: "2025",
-    description: "A contemporary digital composition celebrating the magic of late afternoon light.",
-    color: "from-amber-400 to-orange-500",
-  },
-  {
-    title: "Coral Tide",
-    medium: "Watercolour",
-    year: "2024",
-    description: "Fluid washes of coral and turquoise evoke the gentle rhythm of ocean waves.",
-    color: "from-rose-400 to-cyan-400",
+    title: "That's Gonna Leave a Mark!",
+    eyebrow: "Victoria Fringe Festival 2025",
+    credit: "Performed by Elijah Bell, Thomas Moore, and Theodore Falkiner",
+    description: "Three improvisers are pushed to their limits by grueling physical challenges as they attempt to find the plot. Produced in collaboration with Dead Horse Theatre Co.",
+    folder: "gonna-leave-a-mark",
+    images: [
+      { file: "poster.png", alt: "That's Gonna Leave a Mark production poster" },
+      { file: "3.png", alt: "That's Gonna Leave a Mark production photograph 1" },
+      { file: "1-dsc_6505.webp", alt: "That's Gonna Leave a Mark production photograph 2" },
+      { file: "15-dsc_6570.webp", alt: "That's Gonna Leave a Mark production photograph 3" },
+      { file: "1.png", alt: "That's Gonna Leave a Mark production photograph 4" },
+      { file: "2.png", alt: "That's Gonna Leave a Mark production photograph 5" },
+      { file: "4.png", alt: "That's Gonna Leave a Mark production photograph 6" },
+      { file: "elijah_ahhh.jpeg-e1752275462383.jpg", alt: "That's Gonna Leave a Mark production photograph 7" },
+    ],
   },
 ];
+
+const baseUrl = import.meta.env.BASE_URL;
+const imageUrl = (folder: string, file: string) => `${baseUrl}/images/productions/${folder}/${file}`;
 ---
 
-<section id="portfolio" class="section-padding bg-light">
+<section id="portfolio" class="section-padding bg-light overflow-hidden">
   <div class="max-w-7xl mx-auto">
-    <!-- Section header -->
     <div class="text-center mb-16">
-      <span class="inline-block px-4 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-semibold mb-6 tracking-wide uppercase">Portfolio</span>
+      <span class="inline-block px-4 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-semibold mb-6 tracking-wide uppercase">Productions</span>
       <h2 class="text-4xl md:text-5xl font-black text-dark mb-4">
-        Featured <span class="gradient-text">Works</span>
+        Selected <span class="gradient-text">Works</span>
       </h2>
-      <p class="text-dark/50 text-lg max-w-xl mx-auto">
-        A curated selection of recent pieces across various mediums and styles.
+      <p class="text-dark/50 text-lg max-w-2xl mx-auto">
+        Theatre productions Theo has written, directed, produced, or performed in.
       </p>
     </div>
 
-    <!-- Gallery grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      {artworks.map((artwork) => (
-        <article class="group cursor-pointer">
-          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-            {/* Placeholder gradient image */}
-            <div class={`absolute inset-0 bg-gradient-to-br ${artwork.color} transition-transform duration-700 group-hover:scale-110`}>
-              <div class="absolute inset-0 flex items-center justify-center">
-                <span class="text-white/30 text-7xl font-black">{artwork.title.charAt(0)}</span>
-              </div>
+    <div class="space-y-12">
+      {productions.map((production) => (
+        <article class="production-card" data-production-card>
+          <header class="production-header">
+            <div>
+              <p class="production-eyebrow">{production.eyebrow}</p>
+              <h3>{production.title}</h3>
             </div>
-            {/* Overlay on hover */}
-            <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/40 transition-all duration-500 flex items-end">
-              <div class="p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                <p class="text-white/80 text-sm">{artwork.description}</p>
-              </div>
+            <div class="production-copy">
+              <p class="production-credit">{production.credit}</p>
+              {production.description && <p>{production.description}</p>}
+              {production.award && <p class="production-award">{production.award}</p>}
+            </div>
+          </header>
+
+          <div class="gallery-toolbar">
+            <span class="gallery-status" data-gallery-status aria-live="polite">1 / {production.images.length}</span>
+            <div class="gallery-controls">
+              <button type="button" data-gallery-previous aria-label={`Previous image in ${production.title}`} disabled>
+                <span aria-hidden="true">&larr;</span>
+              </button>
+              <button type="button" data-gallery-next aria-label={`Next image in ${production.title}`}>
+                <span aria-hidden="true">&rarr;</span>
+              </button>
             </div>
           </div>
-          {/* Card info */}
-          <div class="mt-4 px-1">
-            <h3 class="text-lg font-bold text-dark group-hover:text-primary transition-colors">{artwork.title}</h3>
-            <p class="text-dark/50 text-sm">{artwork.medium} &middot; {artwork.year}</p>
+
+          <div class="production-gallery" data-gallery tabindex="0" role="region" aria-label={`${production.title} image gallery`}>
+            {production.images.map((image, imageIndex) => (
+              <figure class:list={["production-slide", { "poster-slide": imageIndex === 0 }]} data-gallery-slide>
+                <img
+                  src={imageUrl(production.folder, image.file)}
+                  alt={image.alt}
+                  loading={imageIndex === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              </figure>
+            ))}
           </div>
         </article>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-production-card]").forEach((card) => {
+    const gallery = card.querySelector<HTMLElement>("[data-gallery]");
+    const slides = Array.from(card.querySelectorAll<HTMLElement>("[data-gallery-slide]"));
+    const previousButton = card.querySelector<HTMLButtonElement>("[data-gallery-previous]");
+    const nextButton = card.querySelector<HTMLButtonElement>("[data-gallery-next]");
+    const status = card.querySelector<HTMLElement>("[data-gallery-status]");
+
+    if (!gallery || !previousButton || !nextButton || !status) return;
+
+    let currentIndex = 0;
+    let animationFrame = 0;
+
+    const updateControls = () => {
+      const galleryStart = gallery.scrollLeft + gallery.clientLeft;
+      currentIndex = slides.reduce((closestIndex, slide, index) => {
+        const currentDistance = Math.abs(slides[closestIndex].offsetLeft - galleryStart);
+        const nextDistance = Math.abs(slide.offsetLeft - galleryStart);
+        return nextDistance < currentDistance ? index : closestIndex;
+      }, 0);
+
+      previousButton.disabled = currentIndex === 0;
+      nextButton.disabled = currentIndex === slides.length - 1;
+      status.textContent = `${currentIndex + 1} / ${slides.length}`;
+    };
+
+    const goToSlide = (index: number) => {
+      const targetIndex = Math.max(0, Math.min(index, slides.length - 1));
+      gallery.scrollTo({ left: slides[targetIndex].offsetLeft - gallery.clientLeft, behavior: "smooth" });
+    };
+
+    previousButton.addEventListener("click", () => goToSlide(currentIndex - 1));
+    nextButton.addEventListener("click", () => goToSlide(currentIndex + 1));
+    gallery.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        goToSlide(currentIndex + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+    gallery.addEventListener("scroll", () => {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(updateControls);
+    }, { passive: true });
+    window.addEventListener("resize", updateControls, { passive: true });
+  });
+</script>
+
+<style>
+  .production-card {
+    overflow: hidden;
+    border: 1px solid rgb(15 23 42 / 10%);
+    border-radius: 0.5rem;
+    background: white;
+    box-shadow: 0 18px 50px rgb(15 23 42 / 8%);
+  }
+
+  .production-header {
+    display: grid;
+    gap: 1.25rem;
+    padding: 2rem 1.5rem 1.5rem;
+  }
+
+  .production-eyebrow {
+    margin-bottom: 0.5rem;
+    color: var(--color-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .production-header h3 {
+    max-width: 18ch;
+    color: var(--color-dark);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    line-height: 1.05;
+  }
+
+  .production-copy {
+    max-width: 42rem;
+    color: rgb(15 23 42 / 62%);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .production-credit {
+    color: var(--color-dark);
+    font-weight: 700;
+  }
+
+  .production-award {
+    color: var(--color-primary-dark);
+    font-weight: 700;
+  }
+
+  .production-copy p + p {
+    margin-top: 0.65rem;
+  }
+
+  .gallery-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem 0.75rem;
+  }
+
+  .gallery-status {
+    color: rgb(15 23 42 / 52%);
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gallery-controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .gallery-controls button {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid rgb(15 23 42 / 18%);
+    border-radius: 50%;
+    color: var(--color-dark);
+    font-size: 1.15rem;
+    transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  }
+
+  .gallery-controls button:hover:not(:disabled),
+  .gallery-controls button:focus-visible {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: white;
+    outline: none;
+  }
+
+  .gallery-controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  .production-gallery {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0 1.5rem 1.5rem;
+    scroll-behavior: smooth;
+    scroll-padding-inline: 1.5rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: rgb(99 102 241 / 55%) rgb(15 23 42 / 8%);
+    scrollbar-width: thin;
+  }
+
+  .production-gallery:focus-visible {
+    outline: 3px solid rgb(99 102 241 / 35%);
+    outline-offset: -3px;
+  }
+
+  .production-slide {
+    position: relative;
+    flex: 0 0 min(82vw, 48rem);
+    height: clamp(20rem, 52vw, 38rem);
+    overflow: hidden;
+    border-radius: 0.375rem;
+    background: #e8e8ec;
+    scroll-snap-align: start;
+  }
+
+  .production-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .production-slide.poster-slide {
+    flex-basis: min(76vw, 28rem);
+    background: #dcdce2;
+  }
+
+  .poster-slide img {
+    object-fit: contain;
+  }
+
+  @media (min-width: 768px) {
+    .production-header {
+      grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 1.2fr);
+      align-items: end;
+      padding: 2.5rem 2.5rem 2rem;
+    }
+
+    .gallery-toolbar {
+      padding-inline: 2.5rem;
+    }
+
+    .production-gallery {
+      gap: 1.25rem;
+      padding: 0 2.5rem 2.5rem;
+      scroll-padding-inline: 2.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .production-gallery {
+      scroll-behavior: auto;
+    }
+  }
+</style>
