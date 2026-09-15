@@ -1,4 +1,4 @@
-# Theo Falkiner - Visual Artist Portfolio
+# Theo Falkiner - Theatre Artist and Sound Designer
 
 A modern, colorful portfolio website built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com).
 
