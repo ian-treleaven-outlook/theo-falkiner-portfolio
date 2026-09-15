@@ -7,10 +7,12 @@ const waveform = [34, 58, 42, 76, 48, 88, 64, 38, 72, 94, 56, 82, 44, 68, 96, 62
 
 <section id="sound-projects" class="sound-section section-padding">
   <div class="max-w-7xl mx-auto">
-    <div class="sound-heading">
-      <span class="sound-kicker">Audio Work</span>
-      <h2>Sound <span class="gradient-text">Projects</span></h2>
-      <p>Recorded stories, live sound, and audio production.</p>
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-semibold mb-6 tracking-wide uppercase">Sound Projects</span>
+      <h2 class="text-4xl md:text-5xl font-black text-white mb-4">
+        Featured <span class="gradient-text">Audio</span>
+      </h2>
+      <p class="text-white/60 text-lg max-w-2xl mx-auto">Recorded stories, live sound, and audio production.</p>
     </div>
 
     <article class="sound-project" data-audio-player>
@@ -164,30 +166,12 @@ const waveform = [34, 58, 42, 76, 48, 88, 64, 38, 72, 94, 56, 82, 44, 68, 96, 62
       repeating-linear-gradient(90deg, transparent 0 3rem, rgb(255 255 255 / 3%) 3rem calc(3rem + 1px));
   }
 
-  .sound-heading {
-    max-width: 46rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .sound-kicker,
   .project-type {
     color: var(--color-accent-light);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-  }
-
-  .sound-heading h2 {
-    margin-top: 0.75rem;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    line-height: 1;
-  }
-
-  .sound-heading > p {
-    margin-top: 1rem;
-    color: rgb(255 255 255 / 58%);
-    font-size: 1.125rem;
   }
 
   .sound-project {
