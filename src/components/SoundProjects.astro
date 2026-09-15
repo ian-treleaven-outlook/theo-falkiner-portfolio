@@ -1,0 +1,396 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const assetBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+const mp3Url = `${assetBaseUrl}audio/sound-projects/doukhobor-choir/doukhobor-choral-practices.mp3`;
+const waveform = [34, 58, 42, 76, 48, 88, 64, 38, 72, 94, 56, 82, 44, 68, 96, 62, 36, 74, 52, 90, 66, 46, 80, 58, 70, 40, 86, 54];
+---
+
+<section id="sound-projects" class="sound-section section-padding">
+  <div class="max-w-7xl mx-auto">
+    <div class="sound-heading">
+      <span class="sound-kicker">Audio Work</span>
+      <h2>Sound <span class="gradient-text">Projects</span></h2>
+      <p>Recorded stories, live sound, and audio production.</p>
+    </div>
+
+    <article class="sound-project" data-audio-player>
+      <div class="project-copy">
+        <p class="project-type">Interview &amp; Choral Performance</p>
+        <h3>Doukhobor Choir Performance and Interview</h3>
+        <p class="project-credit">Sound Recording and Production by Theodore Falkiner</p>
+        <p id="doukhobor-description" class="project-description">
+          Theodore interviews Stephanie Landucci, Victoria Doukhobor Choir director, and Ryan Dutchak,
+          Doukhobor Discovery Centre director of museum and culture, to learn about Doukhobor history
+          and choral practices. The piece is interlined with performances from the Slocan Valley Psalmists,
+          Slocan Valley Doukhobor Youth Choir, Kootenay Doukhobor Youth Choir, and Kootenay Union of Youth Choir.
+        </p>
+      </div>
+
+      <div class="player-shell">
+        <div class="waveform" aria-hidden="true">
+          {waveform.map((height) => <span style={`--bar-height: ${height}%`}></span>)}
+        </div>
+
+        <audio
+          class="native-audio"
+          data-audio
+          controls
+          preload="metadata"
+          aria-describedby="doukhobor-description"
+        >
+          <source src={mp3Url} type="audio/mpeg" />
+          Your browser does not support audio playback.
+        </audio>
+
+        <div class="custom-controls" data-controls hidden>
+          <button class="play-button" type="button" data-play aria-label="Play Doukhobor Choir Performance and Interview">
+            <svg class="play-icon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+            <svg class="pause-icon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 5h4v14H6zm8 0h4v14h-4z"></path>
+            </svg>
+          </button>
+
+          <div class="timeline-group">
+            <input
+              class="timeline"
+              data-timeline
+              type="range"
+              min="0"
+              max="444.73"
+              value="0"
+              step="0.1"
+              aria-label="Seek through Doukhobor Choir Performance and Interview"
+            />
+            <div class="time-row">
+              <time data-current-time datetime="PT0S">0:00</time>
+              <time data-duration datetime="PT7M25S">7:25</time>
+            </div>
+          </div>
+
+          <button class="volume-button" type="button" data-volume aria-label="Mute audio">
+            <svg class="volume-on-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+              <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+              <path d="M18 6a8.5 8.5 0 0 1 0 12"></path>
+            </svg>
+            <svg class="volume-off-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m11 5-5 4H2v6h4l5 4V5Z"></path>
+              <path d="m16 9 5 5m0-5-5 5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-audio-player]").forEach((player) => {
+    const audio = player.querySelector<HTMLAudioElement>("[data-audio]");
+    const controls = player.querySelector<HTMLElement>("[data-controls]");
+    const playButton = player.querySelector<HTMLButtonElement>("[data-play]");
+    const timeline = player.querySelector<HTMLInputElement>("[data-timeline]");
+    const currentTime = player.querySelector<HTMLTimeElement>("[data-current-time]");
+    const duration = player.querySelector<HTMLTimeElement>("[data-duration]");
+    const volumeButton = player.querySelector<HTMLButtonElement>("[data-volume]");
+
+    if (!audio || !controls || !playButton || !timeline || !currentTime || !duration || !volumeButton) return;
+
+    audio.controls = false;
+    controls.hidden = false;
+
+    const formatTime = (seconds: number) => {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${remainingSeconds}`;
+    };
+
+    const updateTimeline = () => {
+      const total = Number.isFinite(audio.duration) ? audio.duration : Number(timeline.max);
+      timeline.max = total.toString();
+      timeline.value = audio.currentTime.toString();
+      timeline.style.setProperty("--progress", `${total ? (audio.currentTime / total) * 100 : 0}%`);
+      currentTime.textContent = formatTime(audio.currentTime);
+      duration.textContent = formatTime(total);
+    };
+
+    const updatePlaybackState = () => {
+      const isPlaying = !audio.paused;
+      player.classList.toggle("is-playing", isPlaying);
+      playButton.setAttribute("aria-label", `${isPlaying ? "Pause" : "Play"} Doukhobor Choir Performance and Interview`);
+    };
+
+    const updateVolumeState = () => {
+      const isMuted = audio.muted || audio.volume === 0;
+      player.classList.toggle("is-muted", isMuted);
+      volumeButton.setAttribute("aria-label", isMuted ? "Unmute audio" : "Mute audio");
+    };
+
+    playButton.addEventListener("click", async () => {
+      if (audio.paused) {
+        await audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+    timeline.addEventListener("input", () => {
+      audio.currentTime = Number(timeline.value);
+      updateTimeline();
+    });
+    volumeButton.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      updateVolumeState();
+    });
+    audio.addEventListener("loadedmetadata", updateTimeline);
+    audio.addEventListener("durationchange", updateTimeline);
+    audio.addEventListener("timeupdate", updateTimeline);
+    audio.addEventListener("play", updatePlaybackState);
+    audio.addEventListener("pause", updatePlaybackState);
+    audio.addEventListener("volumechange", updateVolumeState);
+    updateTimeline();
+    updatePlaybackState();
+    updateVolumeState();
+  });
+</script>
+
+<style>
+  .sound-section {
+    color: white;
+    background:
+      linear-gradient(135deg, rgb(15 23 42 / 98%), rgb(30 41 59 / 96%)),
+      repeating-linear-gradient(90deg, transparent 0 3rem, rgb(255 255 255 / 3%) 3rem calc(3rem + 1px));
+  }
+
+  .sound-heading {
+    max-width: 46rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .sound-kicker,
+  .project-type {
+    color: var(--color-accent-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .sound-heading h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+  }
+
+  .sound-heading > p {
+    margin-top: 1rem;
+    color: rgb(255 255 255 / 58%);
+    font-size: 1.125rem;
+  }
+
+  .sound-project {
+    display: grid;
+    gap: 2rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 0.5rem;
+    background: rgb(255 255 255 / 6%);
+    box-shadow: 0 28px 70px rgb(0 0 0 / 25%);
+  }
+
+  .project-copy h3 {
+    max-width: 20ch;
+    margin-top: 0.65rem;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.08;
+  }
+
+  .project-credit {
+    margin-top: 1.25rem;
+    color: white;
+    font-weight: 700;
+  }
+
+  .project-description {
+    max-width: 46rem;
+    margin-top: 0.75rem;
+    color: rgb(255 255 255 / 68%);
+    line-height: 1.7;
+  }
+
+  .player-shell {
+    align-self: center;
+    min-width: 0;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 0.5rem;
+    background: rgb(3 7 18 / 48%);
+  }
+
+  .waveform {
+    display: flex;
+    height: 8rem;
+    align-items: center;
+    gap: clamp(0.15rem, 0.5vw, 0.35rem);
+    overflow: hidden;
+  }
+
+  .waveform span {
+    flex: 1 1 0;
+    min-width: 2px;
+    height: var(--bar-height);
+    border-radius: 999px;
+    background: linear-gradient(to top, var(--color-primary), var(--color-secondary), var(--color-accent-light));
+    opacity: 0.76;
+    transform-origin: center;
+  }
+
+  .is-playing .waveform span {
+    animation: pulse-wave 900ms ease-in-out infinite alternate;
+  }
+
+  .is-playing .waveform span:nth-child(3n) {
+    animation-delay: -300ms;
+  }
+
+  .is-playing .waveform span:nth-child(4n) {
+    animation-delay: -600ms;
+  }
+
+  .native-audio {
+    width: 100%;
+    margin-top: 1.25rem;
+  }
+
+  .custom-controls {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr) 2.75rem;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .custom-controls[hidden] {
+    display: none;
+  }
+
+  .play-button,
+  .volume-button {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 22%);
+    border-radius: 50%;
+    color: white;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .play-button {
+    width: 3.25rem;
+    height: 3.25rem;
+    background: var(--color-primary);
+  }
+
+  .volume-button {
+    width: 2.75rem;
+    height: 2.75rem;
+    background: transparent;
+  }
+
+  .play-button:hover,
+  .volume-button:hover,
+  .play-button:focus-visible,
+  .volume-button:focus-visible {
+    border-color: var(--color-accent-light);
+    background: var(--color-secondary);
+    outline: none;
+    transform: translateY(-1px);
+  }
+
+  .play-button svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .volume-button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .pause-icon,
+  .volume-off-icon,
+  .is-playing .play-icon,
+  .is-muted .volume-on-icon {
+    display: none;
+  }
+
+  .is-playing .pause-icon,
+  .is-muted .volume-off-icon {
+    display: block;
+  }
+
+  .timeline-group {
+    min-width: 0;
+  }
+
+  .timeline {
+    --progress: 0%;
+    width: 100%;
+    height: 0.35rem;
+    appearance: none;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--color-accent-light) var(--progress), rgb(255 255 255 / 18%) var(--progress));
+    cursor: pointer;
+  }
+
+  .timeline::-webkit-slider-thumb {
+    width: 1rem;
+    height: 1rem;
+    appearance: none;
+    border: 3px solid var(--color-dark);
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 35%);
+  }
+
+  .timeline::-moz-range-thumb {
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 3px solid var(--color-dark);
+    border-radius: 50%;
+    background: white;
+  }
+
+  .timeline:focus-visible {
+    outline: 3px solid rgb(251 191 36 / 45%);
+    outline-offset: 0.4rem;
+  }
+
+  .time-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.45rem;
+    color: rgb(255 255 255 / 55%);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 900px) {
+    .sound-project {
+      grid-template-columns: minmax(0, 0.9fr) minmax(28rem, 1.1fr);
+      align-items: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .waveform span {
+      animation: none !important;
+    }
+  }
+
+  @keyframes pulse-wave {
+    from { transform: scaleY(0.72); }
+    to { transform: scaleY(1); }
+  }
+</style>
