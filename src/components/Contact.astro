@@ -1,4 +1,5 @@
 ---
+const encodedEmail = btoa('theodore.falkiner@gmail.com');
 ---
 
 <section id="contact" class="relative section-padding overflow-hidden">
@@ -22,14 +23,38 @@
     <!-- Contact links -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
       <a
-        href="mailto:theodore.falkiner@gmail.com"
-        class="btn-primary flex items-center gap-3 text-lg"
+        id="email-contact"
+        href="#contact"
+        data-email={encodedEmail}
+        aria-disabled="true"
+        tabindex="-1"
+        class="btn-primary flex items-center gap-3 text-lg cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
         Send an Email
       </a>
     </div>
+    <noscript><p class="text-white/60">Email contact requires JavaScript.</p></noscript>
   </div>
 </section>
+
+<script>
+  const emailLink = document.querySelector<HTMLAnchorElement>('#email-contact');
+
+  if (emailLink) {
+    emailLink.addEventListener('click', (event) => {
+      const encodedAddress = emailLink.dataset.email;
+      if (!encodedAddress) {
+        event.preventDefault();
+        return;
+      }
+
+      emailLink.href = `mailto:${atob(encodedAddress)}`;
+      setTimeout(() => emailLink.setAttribute('href', '#contact'), 0);
+    });
+    emailLink.removeAttribute('aria-disabled');
+    emailLink.removeAttribute('tabindex');
+  }
+</script>
